@@ -108,7 +108,7 @@ def main():
                 cv.CHAIN_APPROX_NONE
                 )
 
-                cv.drawContours(out_im, contours[0], -1, (255,0,0), 5)
+                cv.drawContours(out_im, contours, -1, (255,0,0), 5)
                 
                 #Draw line analyzed
                 skel = fil.skeleton_longpath.squeeze().astype(np.uint8)
@@ -125,12 +125,6 @@ def main():
                 length = round(h/53,2)
                 
          
-                contours, _ = cv.findContours(
-                    stem,
-                    cv.RETR_EXTERNAL,
-                    cv.CHAIN_APPROX_NONE
-                )
-                cont = max(contours, key=cv.contourArea)
                 w = x1-x0
                 cv.line(out_im, (x0+(w//2),y0),(x0+(w//2),y1), (255,0,255), 6)
                 cv.putText(out_im, str(length), (x0+(w//2), y0+(h//2)), cv.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 5)
