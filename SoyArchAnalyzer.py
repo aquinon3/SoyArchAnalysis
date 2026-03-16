@@ -50,7 +50,7 @@ def main():
 
     for im in files:
         
-        image_name = im.replace(f'{input_folder}/', "").replace(".jpg","")
+        image_name = im.replace(f'{input_folder}/', "").replace(".jpeg","")
 
         print(f"Processing: {image_name}")
         start1 = time.perf_counter()
@@ -84,7 +84,7 @@ def main():
         #filter out incorrect masks
         filtered_mask_ids = []
         for idx, mask in enumerate(stemmasks):
-            if mask[0:1500, 1400:2000].sum()==0:
+            if mask[0:1500, 1700:2000].sum()==0:
                 filtered_mask_ids.append(idx)
         stemmasks= stemmasks[filtered_mask_ids]
         stemboxes = results[1]["boxes"][filtered_mask_ids]
@@ -93,7 +93,7 @@ def main():
         out_im = im.copy()
         for idx,stem in enumerate(stemmasks):
             stem = np.array(stem, np.uint8)
-            if stem.sum()>10000:
+            if stem.sum()>15000:
                 skeleton = skeletonize(stem)
                 fil = FilFinder2D(stem, mask=skeleton)
                 fil.medskel(verbose=False)
